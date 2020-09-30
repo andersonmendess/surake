@@ -1,6 +1,6 @@
 <?php
 
-class deldogModule {
+class Deldog {
     public $name = "DelDog";
     public $command = "/dd";
     public $help = "reply some file or Text";

@@ -2,7 +2,7 @@
 
 require dirname(__FILE__)."/../utils/ExpressionParser.php";
 
-class SedModule {
+class Sed {
     public $name = "Sed";
     public $command = "s/";
     public $help = "some text here";

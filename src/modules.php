@@ -1,9 +1,9 @@
 <?php
 
 const modules = [
-    'JustTalkModule',
-    'DeldogModule',
-    "SedModule"
+    'JustTalk',
+    'Deldog',
+    "Sed"
 ];
 
 foreach(modules as $module){

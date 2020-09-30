@@ -1,6 +1,6 @@
 <?php
 
-class JustTalkModule {
+class JustTalk {
     public $name = "Just Talk";
     public $command = "/jt";
     public $help = "some text here";
