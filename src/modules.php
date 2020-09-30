@@ -1,7 +1,7 @@
 <?php
 
 const modules = [
-    'JustTalk',
+    'JustText',
     'Deldog',
     "Sed"
 ];

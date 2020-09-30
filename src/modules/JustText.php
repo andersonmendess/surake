@@ -1,7 +1,7 @@
 <?php
 
-class JustTalk {
-    public $name = "Just Talk";
+class JustText {
+    public $name = "Just Text";
     public $command = "/jt";
     public $help = "some text here";
 
