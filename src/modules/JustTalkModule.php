@@ -18,7 +18,7 @@ class JustTalkModule {
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
 
-        //$this->telegram->deleteMessage($messageId, $chatId);
+        $this->telegram->deleteMessage($messageId, $chatId);
 
         $t->sendMessage($text, $chatId);
     }
