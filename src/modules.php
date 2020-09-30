@@ -2,7 +2,8 @@
 
 const modules = [
     'JustTalkModule',
-    'UploadModule'
+    'UploadModule',
+    'DeldogModule'
 ];
 
 foreach(modules as $module){

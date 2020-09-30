@@ -20,6 +20,10 @@ class Telegram {
         return $this->req->message->text;
     }
 
+    public function getReplyMessageText() {
+        return $this->req->message->reply_to_message->text;
+    }
+
     public function getChatID() {
         return $this->req->message->chat->id;
     }
@@ -29,7 +33,10 @@ class Telegram {
             "text" => $text,
             "chat_id" => $chatId
         ];
-        $data[] = $options;
+
+        if(!empty($options)){
+            $data = array_merge($data, $options);
+        }        
 
         Http::get($this->path."/sendMessage?".http_build_query($data));
     }
