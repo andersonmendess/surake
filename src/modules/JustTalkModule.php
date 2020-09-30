@@ -6,7 +6,7 @@ class JustTalkModule {
     public $help = "some text here";
 
     public function trigger(String $text): bool {
-        return substr($text, 0, 3) === $this->command;
+        return substr($text, 0, strlen($this->command)) === $this->command;
     }
 
     public function clearMessage(String $text): String {
@@ -18,7 +18,7 @@ class JustTalkModule {
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
 
-        $this->telegram->deleteMessage($messageId, $chatId);
+        $t->deleteMessage($messageId, $chatId);
 
         $t->sendMessage($text, $chatId);
     }
