@@ -2,7 +2,7 @@
 
 abstract class Core {
 
-    public function run(Object $req): void {
+    static public function run(Object $req): void {
         $modules = new Modules();
 
         $module = $modules->getModule($req->message->text);
