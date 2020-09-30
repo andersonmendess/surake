@@ -2,7 +2,6 @@
 
 const modules = [
     'JustTalkModule',
-    'UploadModule',
     'DeldogModule'
 ];
 
