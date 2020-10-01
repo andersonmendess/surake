@@ -17,9 +17,17 @@ class JustText {
         $text = $t->getMessageText();
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
+        
+        $options = [];
+        $fromMessageId = $t->getReplyMessageId();
+        if (!empty($fromMessageId)) {
+            $options = [
+                "reply_to_message_id" => $fromMessageId
+            ];
+        }
 
         $t->deleteMessage($messageId, $chatId);
-
-        $t->sendMessage($text, $chatId);
+        
+        $t->sendMessage($text, $chatId, $options);
     }
 }
