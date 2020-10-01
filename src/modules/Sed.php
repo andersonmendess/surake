@@ -25,6 +25,8 @@ class Sed {
             $text = substr_replace($text, "", 1, 1);
         }
 
+        $t->sendChatAction('typing', $chatId);
+
         $replyText = $t->getReplyMessageText();
 
         $ep = new ExpressionParser($replyText, $text);

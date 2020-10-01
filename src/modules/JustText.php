@@ -18,6 +18,8 @@ class JustText {
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
         
+        $t->sendChatAction('typing', $chatId);
+        
         $options = [];
         $fromMessageId = $t->getReplyMessageId();
         if (!empty($fromMessageId)) {

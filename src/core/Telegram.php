@@ -31,6 +31,15 @@ class Telegram {
     public function getChatID() {
         return $this->req->message->chat->id;
     }
+    
+    public function sendChatAction($action, $chatId) {
+        $data = [
+            "action" => $action,
+            "chat_id" => $chatId
+        ];
+        
+        Http::get($this->path."/sendChatAction?".http_build_query($data));
+    }
 
     public function sendMessage($text, $chatId, $options = []){
         $data = [

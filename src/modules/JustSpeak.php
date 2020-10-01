@@ -26,6 +26,8 @@ class JustSpeak {
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
         
+        $t->sendChatAction('record_audio', $chatId);
+        
         $options = [];
         $fromMessageId = $t->getReplyMessageId();
         if (!empty($fromMessageId)) {

@@ -18,6 +18,8 @@ class Deldog {
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
 
+        $t->sendChatAction('typing', $chatId);
+
         $t->deleteMessage($messageId, $chatId);
         
         $res = Http::post("https://del.dog/documents?frontend=true", $text);
