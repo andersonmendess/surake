@@ -19,9 +19,7 @@ class Sed {
         $text = $t->getMessageText();
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
-        
-        $t->sendChatAction('typing', $chatId);
-        
+
         $options = [];
         $fromMessageId = $t->getReplyMessageId();
         if (!empty($fromMessageId)) {
@@ -38,7 +36,7 @@ class Sed {
         $replyText = $t->getReplyMessageText();
 
         $ep = new ExpressionParser($replyText, $text);
-        
+
         if(empty($ep->result)){
             return;
         }
@@ -49,3 +47,4 @@ class Sed {
         $t->sendMessage($ep->result, $chatId, $options);
     }
 }
+
