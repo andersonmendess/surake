@@ -2,6 +2,7 @@
 
 const modules = [
     'JustText',
+    'JustSpeak',
     'Deldog',
     "Sed"
 ];

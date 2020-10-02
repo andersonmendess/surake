@@ -14,15 +14,21 @@ class Deldog {
     }
 
     public function main(Telegram $t){
-        $chatId = $t->getChatID();
         $text = $t->getReplyMessageText();
-        $msgId = $t->getMessageId();
+        $messageId = $t->getMessageId();
+        $chatId = $t->getChatID();
 
+        $t->sendChatAction('typing', $chatId);
+
+        $t->deleteMessage($messageId, $chatId);
+        
         $res = Http::post("https://del.dog/documents?frontend=true", $text);
 
         if($res->key){
-            $t->sendMessage("https://del.dog/".$res->key, $chatId, [
-                "reply_to_message_id" => $msgId
+            $message = "[Link Dogbin](https://del.dog/".$res->key.")\n[Link RAW](https://del.dog/raw/".$res->key.")";
+            $t->sendMessage($message, $chatId, [
+                "reply_to_message_id" => $t->getReplyMessageId(),
+                "parse_mode" => "MARKDOWN"
             ]);
         }
 

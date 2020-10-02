@@ -16,9 +16,19 @@ class Sed {
     }
 
     public function main(Telegram $t): void{
+        $text = $t->getMessageText();
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
-        $text = $t->getMessageText();
+        
+        $t->sendChatAction('typing', $chatId);
+        
+        $options = [];
+        $fromMessageId = $t->getReplyMessageId();
+        if (!empty($fromMessageId)) {
+            $options = [
+                "reply_to_message_id" => $fromMessageId
+            ];
+        }
 
         if($text[1] == "/" && $text[2] == "/") {
             $t->deleteMessage($messageId, $chatId);
@@ -36,6 +46,6 @@ class Sed {
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
 
-        $t->sendMessage($ep->result, $chatId);
+        $t->sendMessage($ep->result, $chatId, $options);
     }
 }

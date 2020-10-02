@@ -15,6 +15,10 @@ class Telegram {
     public function getFromMessageId() {
         return $this->req->message->from->id;
     }
+    
+    public function getReplyMessageId() {
+        return $this->req->message->reply_to_message->message_id;
+    }
 
     public function getMessageText() {
         return $this->req->message->text;
@@ -26,6 +30,15 @@ class Telegram {
 
     public function getChatID() {
         return $this->req->message->chat->id;
+    }
+    
+    public function sendChatAction($action, $chatId) {
+        $data = [
+            "action" => $action,
+            "chat_id" => $chatId
+        ];
+        
+        Http::get($this->path."/sendChatAction?".http_build_query($data));
     }
 
     public function sendMessage($text, $chatId, $options = []){
@@ -47,5 +60,31 @@ class Telegram {
             "chat_id" => $chatId,
         ];
         Http::get($this->path."/deleteMessage?".http_build_query($data));
+    }
+    
+    public function sendVoice($voice, $chatId, $options = []){
+        $data = [
+            "voice" => $voice,
+            "chat_id" => $chatId
+        ];
+
+        if(!empty($options)){
+            $data = array_merge($data, $options);
+        }        
+
+        Http::get($this->path."/sendVoice?".http_build_query($data));
+    }
+    
+    public function sendAudio($audio, $chatId, $options = []){
+        $data = [
+            "audio" => $audio,
+            "chat_id" => $chatId
+        ];
+
+        if(!empty($options)){
+            $data = array_merge($data, $options);
+        }        
+
+        Http::get($this->path."/sendAudio?".http_build_query($data));
     }
 }
