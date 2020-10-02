@@ -8,6 +8,10 @@ require_once "src/bootstrap.php";
 
 $hook = json_decode(file_get_contents("php://input"));
 
-file_put_contents("res.json", json_encode($hook, JSON_PRETTY_PRINT));
+//file_put_contents("res.json", json_encode($hook, JSON_PRETTY_PRINT));
 
-Core::run($hook);
+// runing bot with webhook
+// Core::hook($hook);
+
+// running bot with get updates (long polling)
+Core::run();
