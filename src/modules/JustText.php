@@ -17,9 +17,7 @@ class JustText {
         $text = $t->getMessageText();
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
-        
-        $t->sendChatAction('typing', $chatId);
-        
+
         $options = [];
         $fromMessageId = $t->getReplyMessageId();
         if (!empty($fromMessageId)) {
@@ -29,7 +27,7 @@ class JustText {
         }
 
         $t->deleteMessage($messageId, $chatId);
-        
+
         $t->sendMessage($text, $chatId, $options);
     }
 }

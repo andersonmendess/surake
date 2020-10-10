@@ -4,7 +4,7 @@ class JustSpeak {
     public $name = "Just Speak";
     public $command = "/js";
     public $help = "some text here";
-    
+
     private $uri = "https://translate.google.com.br/translate_tts?";
     private $lang = "pt-br";
     private $ie = "UTF-8";
@@ -25,9 +25,7 @@ class JustSpeak {
         }
         $messageId = $t->getMessageId();
         $chatId = $t->getChatID();
-        
-        $t->sendChatAction('record_audio', $chatId);
-        
+
         $options = [];
         $fromMessageId = $t->getReplyMessageId();
         if (!empty($fromMessageId)) {
@@ -37,12 +35,12 @@ class JustSpeak {
         }
 
         $t->deleteMessage($messageId, $chatId);
-        
+
         $voice = $this->speech($text);
-        
+
         $t->sendVoice($voice, $chatId, $options);
     }
-    
+
     private function speech(String $text) {
         return $this->uri.http_build_query([
             "ie" => $this->ie,
