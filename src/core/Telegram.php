@@ -15,7 +15,7 @@ class Telegram {
     public function getFromMessageId() {
         return $this->req->message->from->id;
     }
-    
+
     public function getReplyMessageId() {
         return $this->req->message->reply_to_message->message_id ?? null;
     }
@@ -31,15 +31,6 @@ class Telegram {
     public function getChatID() {
         return $this->req->message->chat->id;
     }
-    
-    public function sendChatAction($action, $chatId) {
-        $data = [
-            "action" => $action,
-            "chat_id" => $chatId
-        ];
-        
-        Http::get($this->path."/sendChatAction?".http_build_query($data));
-    }
 
     public function sendMessage($text, $chatId, $options = []){
         $data = [
@@ -49,7 +40,7 @@ class Telegram {
 
         if(!empty($options)){
             $data = array_merge($data, $options);
-        }        
+        }
 
         Http::get($this->path."/sendMessage?".http_build_query($data));
     }
@@ -61,7 +52,7 @@ class Telegram {
         ];
         Http::get($this->path."/deleteMessage?".http_build_query($data));
     }
-    
+
     public function sendVoice($voice, $chatId, $options = []){
         $data = [
             "voice" => $voice,
@@ -70,11 +61,11 @@ class Telegram {
 
         if(!empty($options)){
             $data = array_merge($data, $options);
-        }        
+        }
 
         Http::get($this->path."/sendVoice?".http_build_query($data));
     }
-    
+
     public function sendAudio($audio, $chatId, $options = []){
         $data = [
             "audio" => $audio,
@@ -83,7 +74,7 @@ class Telegram {
 
         if(!empty($options)){
             $data = array_merge($data, $options);
-        }        
+        }
 
         Http::get($this->path."/sendAudio?".http_build_query($data));
     }
