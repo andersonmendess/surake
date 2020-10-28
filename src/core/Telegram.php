@@ -17,7 +17,7 @@ class Telegram {
     }
     
     public function getReplyMessageId() {
-        return $this->req->message->reply_to_message->message_id;
+        return $this->req->message->reply_to_message->message_id ?? null;
     }
 
     public function getMessageText() {

@@ -3,6 +3,11 @@
 abstract class Core {
 
     static public function main(Object $req): void {
+
+        if(!isset($req->message->text)){
+            return;
+        }
+
         $modules = new Modules();
 
         $module = $modules->getModule($req->message->text);
