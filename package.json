@@ -1,0 +1,26 @@
+{
+  "name": "surakebot",
+  "version": "1.0.0",
+  "description": "A Telegram bot",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon ./src",
+    "run": "NODE_ENV=production node ./src"
+  },
+  "keywords": [
+    "BOT",
+    "TELEGRAM",
+    "TELEGRAM BOT"
+  ],
+  "author": "Anderson Mendes",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
+    "telegraf": "^3.38.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
