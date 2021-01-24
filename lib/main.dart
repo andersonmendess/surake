@@ -7,7 +7,7 @@ import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
 
-void run() {
+void setup() {
   final envVars = Platform.environment;
 
   if (!envVars.containsKey('BOT_TOKEN')) {
@@ -19,16 +19,29 @@ void run() {
 
   getIt.registerSingleton<Telegram>(telegram);
   getIt.registerSingleton<TeleDart>(teledart);
+}
+
+void run() {
+  final teledart = getIt.get<TeleDart>();
 
   teledart.start().then((me) => print('BOT IS UP'));
 
   commands.forEach((command) {
     if (command.triggerMode == TriggerMode.COMMAND) {
-      teledart.onCommand(command.trigger).listen(command.runner);
+      teledart.onCommand(command.trigger).listen((p) {
+        command.runner(p);
+      });
     }
 
     if (command.triggerMode == TriggerMode.TEXT) {
-      teledart.onMessage(keyword: command.trigger).listen(command.runner);
+      teledart.onMessage(keyword: command.trigger).listen((p) {
+        command.runner(p);
+      });
     }
   });
+}
+
+void stop() {
+  final teledart = getIt.get<TeleDart>();
+  teledart.stop();
 }
