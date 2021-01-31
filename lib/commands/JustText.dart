@@ -10,6 +10,8 @@ class JustText implements ICommand {
 
     final text = message.text.replaceAll('/$trigger', '');
 
+    if (text.isEmpty) return null;
+
     if (message.reply_to_message?.message_id != null) {
       telegram.sendMessage(message.chat.id, text,
           reply_to_message_id: message.reply_to_message.message_id);
@@ -17,7 +19,11 @@ class JustText implements ICommand {
       message.reply(text);
     }
 
-    telegram.deleteMessage(message.chat.id, message.message_id);
+    try {
+      telegram.deleteMessage(message.chat.id, message.message_id);
+    } catch (err) {
+      message.reply('I cant delete the message, please give me ademir');
+    }
 
     return Future(() {});
   }

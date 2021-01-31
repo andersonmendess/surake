@@ -25,12 +25,16 @@ class ExpressionParser {
       from = text;
     }
 
+    if (from == '\$') {
+      text += 'phder';
+      from = 'phder';
+    }
+
     result = run();
   }
 
   bool isValid() {
     if (expression[0] != 's') return false;
-    if (!(expression.endsWith('/') || expression.endsWith('/g'))) return false;
 
     if (expressionSplitted.length <= 3 && expressionSplitted.length >= 4) {
       return false;

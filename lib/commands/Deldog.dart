@@ -1,10 +1,17 @@
 import 'package:surake/interfaces/ICommand.dart';
 import 'package:surake/main.dart';
+import 'package:surake/services/deldog.dart';
+import 'package:surake/utils/DocumentDownloader.dart';
 import 'package:teledart/model.dart';
 import 'package:teledart/src/teledart/model/message.dart';
 import 'package:teledart/telegram.dart';
+import 'package:surake/extensions/TeleDartMessage.dart';
 
 class Deldog implements ICommand {
+  final service = DeldogService();
+  final downloader = DocumentDownloader();
+  final telegram = getIt.get<Telegram>();
+
   @override
   String trigger = 'dd';
 
@@ -13,33 +20,30 @@ class Deldog implements ICommand {
 
   @override
   Future<void> runner(TeleDartMessage message) async {
-    var isFile = true;
+    if (message.reply_to_message == null) return;
 
-    if (message.reply_to_message?.document == null) {
-      isFile = false;
-    }
+    var isFile = !(message.reply_to_message?.document == null);
 
-    final telegram = getIt.get<Telegram>();
+    final msgRef =
+        await message.replyMessage('DELDOG: Sending your content...');
 
-    Message warn;
+    String content;
 
     if (isFile) {
       final doc = message.reply_to_message.document;
 
+      if (doc.mime_type != 'text/plain') return;
+
       final file = await telegram.getFile(doc.file_id);
 
-      print(file);
-
-      warn = await message.reply("sending ${doc.file_name} to deldog");
+      content = await downloader.getAsString(file);
     } else {
-      final doc = message.reply_to_message.text;
-
-      warn = await message.reply("sending ${doc} to deldog");
+      content = message.reply_to_message.text;
     }
 
-    await Future.delayed(Duration(seconds: 7));
+    if (content == null) return;
 
-    telegram.editMessageText("done",
-        message_id: warn.message_id, chat_id: warn.chat.id);
+    final ddURL = await service.pushContent(content);
+    await message.editMessage('$ddURL', msgRef);
   }
 }

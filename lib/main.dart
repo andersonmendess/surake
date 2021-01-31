@@ -1,7 +1,8 @@
 import 'dart:io' show Platform;
 import 'package:surake/commands.dart';
+
 import 'package:surake/interfaces/ICommand.dart';
-import 'package:teledart/teledart.dart';
+import 'package:teledart/teledart.dart' show Event, TeleDart;
 import 'package:teledart/telegram.dart';
 import 'package:get_it/get_it.dart';
 
@@ -29,13 +30,23 @@ void run() {
   commands.forEach((command) {
     if (command.triggerMode == TriggerMode.COMMAND) {
       teledart.onCommand(command.trigger).listen((p) {
-        command.runner(p);
+        try {
+          command.runner(p);
+        } catch (err, stacktrace) {
+          print(err);
+          print(stacktrace);
+        }
       });
     }
 
     if (command.triggerMode == TriggerMode.TEXT) {
       teledart.onMessage(keyword: command.trigger).listen((p) {
-        command.runner(p);
+        try {
+          command.runner(p);
+        } catch (err, stacktrace) {
+          print(err);
+          print(stacktrace);
+        }
       });
     }
   });
